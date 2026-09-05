@@ -30,6 +30,19 @@ if (nav) {
   updateNav();
 }
 
+// Scroll progress bar
+const progressBar = document.getElementById('progressBar');
+if (progressBar) {
+  const updateProgress = () => {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  };
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+}
+
 // Scroll reveal
 const revealEls = document.querySelectorAll('.reveal-fade');
 
