@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AJA — Personal Website</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2306060a'/%3E%3Ctext x='50' y='68' font-family='Arial,sans-serif' font-size='58' font-weight='900' fill='%23e8ff47' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Personal website of AJA (Hemmawit Markpong) — psychology, marketing strategy, communication &amp; learning.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AJA — Personal Website">
+<meta property="og:description" content="Psychology, marketing strategy, communication & learning.">
+<meta property="og:image" content="assets/profile/profile.jpg">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="cursor-dot" id="cursorDot"></div>
+
+<header class="nav" id="nav">
+  <a href="#top" class="nav__logo">AJA</a>
+  <div class="nav__right">
+    <nav class="nav__links">
+      <a href="#about">About</a>
+      <a href="#process">Process</a>
+      <a href="#work">Work</a>
+      <a href="#blog">Blog</a>
+    </nav>
+    <a href="#contact" class="nav__cta">Start a Conversation</a>
+  </div>
+  <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about">About</a>
+  <a href="#process">Process</a>
+  <a href="#work">Work</a>
+  <a href="#blog">Blog</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__grid" aria-hidden="true"></div>
+    <div class="hero__glow" aria-hidden="true"></div>
+    <div class="hero__noise" aria-hidden="true"></div>
+
+    <div class="hero__marquee" aria-hidden="true">
+      <div class="hero__marquee-track">
+        <span>AJA</span><span>&nbsp;&mdash;&nbsp;</span>
+        <span>AJA</span><span>&nbsp;&mdash;&nbsp;</span>
+        <span>AJA</span><span>&nbsp;&mdash;&nbsp;</span>
+        <span>AJA</span><span>&nbsp;&mdash;&nbsp;</span>
+      </div>
+    </div>
+
+    <svg class="hero__orbit" viewBox="0 0 100 100" aria-hidden="true">
+      <path id="orbitPath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent" />
+      <text><textPath href="#orbitPath">Psychology · Strategy · AJA · Psychology · Strategy · AJA · </textPath></text>
+    </svg>
+
+    <div class="hero__badge reveal-fade">
+      <i></i>Open for talks &amp; collaborations
+    </div>
+
+    <h1 class="hero__title">
+      <span class="reveal">AJA</span>
+    </h1>
+
+    <p class="hero__realname reveal-fade">Hemmawit Markpong</p>
+    <p class="hero__tagline reveal-fade">Psychology · Marketing Strategy · Communication &amp; Learning</p>
+
+    <div class="hero__actions reveal-fade" style="position:relative; z-index:2; display:flex; flex-wrap:wrap; justify-content:center; gap:16px; margin-top:36px;">
+      <a href="#work" class="btn btn--solid">See My Work</a>
+      <a href="#process" class="btn btn--outline">How I Work</a>
+    </div>
+
+    <a class="hero__scroll" href="#about" aria-label="Scroll down">
+      <span>Scroll</span>
+      <i></i>
+    </a>
+
+    <div class="hero__stat">
+      <strong>7+</strong>
+      <span>Talks &amp; Workshops</span>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about section">
+    <div class="section__label reveal-fade">01 &mdash; About</div>
+    <div class="about__grid">
+      <div class="about__photo reveal-fade">
+        <img src="assets/profile/profile.jpg" alt="A.Amp — Hemmawit Markpong">
+      </div>
+      <div class="about__text">
+        <h3 style="font-family:var(--font-display); font-weight:700; font-size:clamp(22px,3vw,30px); margin-bottom:8px;">
+          A.Amp — Hemmawit Markpong
+        </h3>
+
+        <p class="reveal-fade">
+          Hello, I'm A.Amp. My background and expertise are in psychology. I have worked as an educator, psychologist, and counseling professional before expanding into business management, marketing strategy, and communication.
+          <span class="th">สวัสดีครับ ผมอาจารย์แอ๋ม มีพื้นฐานและความเชี่ยวชาญด้านจิตวิทยา ผ่านการทำงานในบทบาทอาจารย์ นักจิตวิทยา และผู้ให้คำปรึกษา ก่อนจะต่อยอดมาสู่งานบริหารธุรกิจ กลยุทธ์การตลาด และการสื่อสาร</span>
+        </p>
+
+        <p class="reveal-fade">
+          I'm interested in how people think, learn, and make decisions—and what helps them understand a challenge more clearly and move forward. That interest shapes how I work, whether I'm teaching, offering guidance, or working with a business owner.
+          <span class="th">สิ่งที่ผมสนใจคือ คนเราคิด เรียนรู้ และตัดสินใจอย่างไร รวมถึงอะไรที่จะช่วยให้เรามองเห็นปัญหาชัดขึ้นและก้าวต่อไปได้ ความสนใจนี้เป็นพื้นฐานของวิธีทำงานของผม ทั้งในห้องเรียน การพูดคุยให้คำปรึกษา และการทำงานร่วมกับเจ้าของธุรกิจ</span>
+        </p>
+
+        <h4 style="font-size:16px; font-weight:600; margin:28px 0 4px;">
+          Understanding people, then finding a practical way forward
+        </h4>
+
+        <p class="reveal-fade">
+          When someone brings me a challenge, I like to begin by listening. What is happening now? What constraints are they working with? What would they like to change? The answers matter because each person and each business needs an approach that fits their circumstances.
+          <span class="th">เวลามีคนเอาโจทย์มาคุย ผมอยากฟังให้เข้าใจก่อนครับว่า ตอนนี้กำลังเจออะไร มีเงื่อนไขอะไรอยู่ และอยากเห็นอะไรเปลี่ยนแปลง เพราะแนวทางที่เหมาะกับแต่ละคนหรือแต่ละธุรกิจอาจต่างกัน</span>
+        </p>
+
+        <p class="reveal-fade">
+          I draw on psychology to guide how I listen, ask questions, understand motivation, and design learning experiences. My aim is to help people see their options, understand the reasoning behind them, and put our work together into practice.
+          <span class="th">ผมนำความรู้ด้านจิตวิทยามาใช้ในการฟัง ตั้งคำถาม ทำความเข้าใจแรงจูงใจ และออกแบบการเรียนรู้ เป้าหมายคือช่วยให้คนที่ทำงานด้วยมองเห็นทางเลือก เข้าใจเหตุผล และนำสิ่งที่คุยกันไปใช้ต่อได้จริง</span>
+        </p>
+
+        <h4 style="font-size:16px; font-weight:600; margin:28px 0 4px;">
+          Experience across education, psychology, and business
+        </h4>
+
+        <p class="reveal-fade">
+          I earned my bachelor's and doctoral degrees from the Faculty of Education at Chiang Mai University, and my master's degree from its Faculty of Humanities.
+          <span class="th">ผมศึกษาที่มหาวิทยาลัยเชียงใหม่ทั้งสามระดับ โดยสำเร็จการศึกษาระดับปริญญาตรีและปริญญาเอกจากคณะศึกษาศาสตร์ และปริญญาโทจากคณะมนุษยศาสตร์</span>
+        </p>
+
+        <p class="reveal-fade">
+          My previous roles include guidance teacher at The Prince Royal's College, special lecturer at Chiang Mai Rajabhat University, psychologist at a boys' welfare home in Chiang Mai, and lecturer at Chiang Mai University. I have also worked in care and counseling support.
+          <span class="th">ประสบการณ์ที่ผ่านมา ได้แก่ อาจารย์สอนแนะแนวที่โรงเรียนปรินส์รอยแยลส์วิทยาลัย อาจารย์พิเศษที่มหาวิทยาลัยราชภัฏเชียงใหม่ นักจิตวิทยาที่สถานสงเคราะห์บ้านเด็กชายเชียงใหม่ และอาจารย์ที่มหาวิทยาลัยเชียงใหม่ รวมถึงงานด้านการให้คำปรึกษาและการดูแลสนับสนุน</span>
+        </p>
+
+        <p class="reveal-fade">
+          I later moved into business management and creative work, connecting my understanding of people with the practical demands of marketing, communication, and running a business.
+          <span class="th">ต่อมาผมได้ทำงานบริหารธุรกิจและงานสร้างสรรค์ ซึ่งเปิดโอกาสให้เชื่อมความเข้าใจเรื่องคนเข้ากับการตลาด การสื่อสาร และการลงมือทำในบริบทธุรกิจ</span>
+        </p>
+
+        <h4 style="font-size:16px; font-weight:600; margin:28px 0 4px;">
+          What I do today
+        </h4>
+
+        <p class="reveal-fade">
+          Today, I serve as CEO of KidKid Marketing (คิดคิด มาร์เกตติ้ง) and KAEN SCHOOL. My work includes marketing strategy, creative and communication consulting, and the design of classes and workshops.
+          <span class="th">ปัจจุบันผมเป็น CEO ของคิดคิด มาร์เกตติ้ง และ KAEN SCHOOL ทำงานด้านกลยุทธ์การตลาด ให้คำปรึกษาด้านความคิดสร้างสรรค์และการสื่อสาร รวมถึงออกแบบคลาสและเวิร์กช็อป</span>
+        </p>
+
+        <p class="reveal-fade">
+          I'm also developing ways to bring AI into work and learning. I start with a real task, then explore where the technology can help. To me, a valuable outcome can be a clearer understanding, a practical next step, or a piece of work that someone can take away and use.
+          <span class="th">ผมกำลังพัฒนาการนำ AI มาใช้กับงานและการเรียนรู้ โดยเริ่มจากโจทย์ที่คนต้องทำจริง แล้วค่อยดูว่าเทคโนโลยีจะช่วยตรงไหนได้บ้าง สำหรับผม ผลลัพธ์ที่มีคุณค่าอาจเป็นความเข้าใจที่ชัดขึ้น แนวทางที่เริ่มทำได้ หรือผลงานที่นำกลับไปใช้ต่อได้จริง</span>
+        </p>
+
+        <p class="reveal-fade">
+          If you're exploring how to develop your business, improve your communication, or support your team's learning, let's start with a conversation. We can work through the challenge together and find a next step that fits.
+          <span class="th">ถ้าคุณกำลังมองหาแนวทางพัฒนาธุรกิจ การสื่อสาร หรือการเรียนรู้ของทีม ลองเริ่มจากการพูดคุยกันครับ เราค่อย ๆ ทำความเข้าใจโจทย์ แล้วออกแบบขั้นตอนถัดไปให้เหมาะกับคุณ</span>
+        </p>
+
+        <ul class="about__tags reveal-fade">
+          <li>Psychology</li>
+          <li>Marketing Strategy</li>
+          <li>Communication</li>
+          <li>Learning Design</li>
+          <li>AI Integration</li>
+          <li>Public Speaking</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process" class="section">
+    <div class="section__label reveal-fade">02 &mdash; Process</div>
+    <h2 class="section__title reveal-fade">How I Work</h2>
+
+    <div class="process__list">
+      <div class="process__item reveal-fade">
+        <span class="process__num">01</span>
+        <div class="process__body">
+          <h3>Listen</h3>
+          <p>I begin by listening — what's happening now, what constraints you're working with, and what you'd like to change.
+            <span class="th">เริ่มจากการฟัง — ตอนนี้กำลังเจออะไร มีเงื่อนไขอะไรอยู่ และอยากเห็นอะไรเปลี่ยนแปลง</span>
+          </p>
+        </div>
+      </div>
+      <div class="process__item reveal-fade">
+        <span class="process__num">02</span>
+        <div class="process__body">
+          <h3>Understand</h3>
+          <p>I draw on psychology to understand motivation and the reasoning behind each option, not just the surface request.
+            <span class="th">นำความรู้ด้านจิตวิทยามาใช้ทำความเข้าใจแรงจูงใจและเหตุผลเบื้องหลัง ไม่ใช่แค่โจทย์ที่เห็นผิวเผิน</span>
+          </p>
+        </div>
+      </div>
+      <div class="process__item reveal-fade">
+        <span class="process__num">03</span>
+        <div class="process__body">
+          <h3>Design</h3>
+          <p>Together we design a strategy or a learning experience that fits your specific situation — not a one-size-fits-all template.
+            <span class="th">ออกแบบกลยุทธ์หรือการเรียนรู้ที่เหมาะกับสถานการณ์ของคุณโดยเฉพาะ ไม่ใช่สูตรสำเร็จรูป</span>
+          </p>
+        </div>
+      </div>
+      <div class="process__item reveal-fade">
+        <span class="process__num">04</span>
+        <div class="process__body">
+          <h3>Put It Into Practice</h3>
+          <p>The goal is always a next step you can actually use — a clearer understanding, a practical plan, or work you can take away.
+            <span class="th">เป้าหมายคือขั้นตอนถัดไปที่นำไปใช้ได้จริง ไม่ว่าจะเป็นความเข้าใจที่ชัดขึ้น แผนที่เริ่มทำได้ หรือผลงานที่นำกลับไปใช้ต่อ</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work" class="work section">
+    <div class="section__label reveal-fade">03 &mdash; Work</div>
+    <h2 class="section__title reveal-fade">Selected Work</h2>
+
+    <div class="work__grid">
+      <article class="work__item reveal-fade">
+        <div class="work__thumb"><img src="assets/work/work-1.jpg" alt="Best Technology Utilization of the Year award" loading="lazy"></div>
+        <h3>Best Technology Utilization of the Year</h3>
+        <p>Received this award at Global MarTech Integration Day 2026, Chiang Mai, in collaboration with NDEA.
+          <span class="th">รับรางวัลในงาน Global MarTech Integration Day 2026 เชียงใหม่ ร่วมกับ NDEA</span>
+        </p>
+      </article>
+      <article class="work__item reveal-fade">
+        <div class="work__thumb"><img src="assets/work/work-5.jpg" alt="Presenting Opportunity Engine" loading="lazy"></div>
+        <h3>Opportunity Engine</h3>
+        <p>Presented a solution with three core modules — Opportunity Radar, Event Scenario Simulator, and Opportunity Blueprint.
+          <span class="th">นำเสนอโซลูชัน 3 โมดูลหลัก — Opportunity Radar, Event Scenario Simulator และ Opportunity Blueprint</span>
+        </p>
+      </article>
+      <article class="work__item reveal-fade">
+        <div class="work__thumb"><img src="assets/work/work-4.jpg" alt="Workshop: The Anatomy of a Great Prompt" loading="lazy"></div>
+        <h3>The Anatomy of a Great Prompt</h3>
+        <p>A workshop teaching the IIOC framework for writing AI prompts that get the results you want.
+          <span class="th">เวิร์กช็อปสอนเฟรมเวิร์ก IIOC สำหรับการเขียนพรอมต์ AI ให้ได้ผลลัพธ์ที่ต้องการ</span>
+        </p>
+      </article>
+      <article class="work__item reveal-fade">
+        <div class="work__thumb"><img src="assets/work/work-3.jpg" alt="Every Great City Has Assets" loading="lazy"></div>
+        <h3>Every Great City Has Assets</h3>
+        <p>A talk at Global MarTech x MICE City on using data to decide what a city should build next.
+          <span class="th">บรรยายในงาน Global MarTech x MICE City ว่าด้วยการใช้ข้อมูลตัดสินใจว่าเมืองควรสร้างอะไรต่อไป</span>
+        </p>
+      </article>
+      <article class="work__item reveal-fade">
+        <div class="work__thumb"><img src="assets/work/work-7.jpg" alt="What should Chiang Mai build next?" loading="lazy"></div>
+        <h3>What Should Chiang Mai Build Next?</h3>
+        <p>Using data — not gut feeling — to plan events in Chiang Mai.
+          <span class="th">วิเคราะห์ข้อมูลเพื่อวางแผนอีเวนต์ในเชียงใหม่ — จากข้อมูล ไม่ใช่จากความรู้สึก</span>
+        </p>
+      </article>
+      <article class="work__item reveal-fade">
+        <div class="work__thumb"><img src="assets/work/work-2.jpg" alt="Speaking at BDI Hackathon 2026 PRO" loading="lazy"></div>
+        <h3>BDI Hackathon 2026 PRO</h3>
+        <p>A talk on "Traveler" — analyzing tourist segment data.
+          <span class="th">บรรยายหัวข้อ "Traveler" การวิเคราะห์ข้อมูลกลุ่มนักท่องเที่ยว</span>
+        </p>
+      </article>
+      <article class="work__item reveal-fade">
+        <div class="work__thumb"><img src="assets/work/work-6.jpg" alt="Why is the best local restaurant still undiscovered?" loading="lazy"></div>
+        <h3>Why Is the Best Local Restaurant Still Undiscovered?</h3>
+        <p>A talk at BDI Hackathon on why great local restaurants go undiscovered.
+          <span class="th">บรรยายในงาน BDI Hackathon ว่าด้วยปัญหาการค้นพบร้านอาหารท้องถิ่นคุณภาพ</span>
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" class="section">
+    <div class="section__label reveal-fade">04 &mdash; Testimonials</div>
+    <h2 class="section__title reveal-fade">What People Say</h2>
+
+    <div class="testimonials__grid">
+      <div class="testimonial reveal-fade">
+        <span class="testimonial__mark">"</span>
+        <p class="testimonial__quote">A.Amp has a rare gift — he can take a dense psychology concept and turn it into something a room full of business owners immediately understands. I've sat in on his workshops just to learn how he teaches.
+          <span class="th">อาจารย์แอ๋มมีพรสวรรค์ที่หาไม่ค่อยได้ครับ เอาแนวคิดจิตวิทยาที่ซับซ้อนมาเล่าให้เจ้าของธุรกิจทั้งห้องเข้าใจได้ทันที ผมยังแอบนั่งฟังเวิร์กช็อปของเขาเพื่อเรียนรู้วิธีสอนเลยครับ</span>
+        </p>
+        <div class="testimonial__author">— Fellow lecturer, psychology</div>
+      </div>
+      <div class="testimonial reveal-fade">
+        <span class="testimonial__mark">"</span>
+        <p class="testimonial__quote">We talked for one afternoon about where our marketing was stuck, and I walked away with a plan I actually understood — not just a deck full of buzzwords.
+          <span class="th">คุยกันแค่บ่ายเดียวเรื่องที่การตลาดของเราติดขัด แล้วผมได้แผนที่เข้าใจจริงกลับไป ไม่ใช่แค่สไลด์เต็มไปด้วยศัพท์การตลาด</span>
+        </p>
+        <div class="testimonial__author">— Business owner &amp; friend</div>
+      </div>
+      <div class="testimonial reveal-fade">
+        <span class="testimonial__mark">"</span>
+        <p class="testimonial__quote">I came to the AI + Canva class with zero confidence. By the end I'd made a real post for my shop and knew exactly how to make the next one myself.
+          <span class="th">มาเข้าคลาส AI + Canva แบบไม่มั่นใจอะไรเลยครับ พอจบคลาสได้โพสต์จริงของร้านตัวเองออกมา แล้วรู้วิธีทำชิ้นต่อไปเองด้วย</span>
+        </p>
+        <div class="testimonial__author">— Workshop participant, KAEN SCHOOL</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG -->
+  <section id="blog" class="blog section">
+    <div class="section__label reveal-fade">05 &mdash; Blog</div>
+    <h2 class="section__title reveal-fade">Latest Articles</h2>
+
+    <div class="blog__list">
+      <a href="blog/start-with-the-work-before-ai.html" class="blog__item reveal-fade">
+        <span class="blog__date">AI at Work</span>
+        <h3 class="blog__title">Want to Use AI at Work? Start Here.</h3>
+        <p class="blog__excerpt">I think you should start with the work you're already stuck on. Pick one thing, try it, and see if it actually helps.</p>
+        <span class="blog__more">Read more →</span>
+      </a>
+      <a href="blog/follow-the-customer-after-first-contact.html" class="blog__item reveal-fade">
+        <span class="blog__date">Business &amp; Systems</span>
+        <h3 class="blog__title">A Customer Just Reached Out — Now What?</h3>
+        <p class="blog__excerpt">I've been thinking about this with AJA — from the first questions we ask, to the day we actually talk, what should a customer get along the way?</p>
+        <span class="blog__more">Read more →</span>
+      </a>
+      <a href="blog/learning-ai-through-real-work.html" class="blog__item reveal-fade">
+        <span class="blog__date">Learning &amp; Workshops</span>
+        <h3 class="blog__title">Learning AI Should Leave You With Real Work</h3>
+        <p class="blog__excerpt">When I design a class, I think about the work a learner can walk away with — here's why the AI + Canva class exists, and what I want people to get from it.</p>
+        <span class="blog__more">Read more →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER / CONTACT -->
+  <section id="contact" class="contact section">
+    <div class="contact__inner">
+      <div class="section__label reveal-fade">06 &mdash; Contact</div>
+      <h2 class="contact__title reveal-fade">Let's Talk</h2>
+      <p class="contact__text reveal-fade">
+        Interested in working together, have a question, or just want to say hi? Send an email.
+        <span class="th">สนใจร่วมงาน มีคำถาม หรือแค่อยากทักทาย — ส่งอีเมลมาได้เลย</span>
+      </p>
+      <a class="contact__email reveal-fade" href="mailto:hemmawitmarkpong@gmail.com">hemmawitmarkpong@gmail.com</a>
+
+      <form class="newsletter reveal-fade" action="https://buttondown.com/api/emails/embed-subscribe/hemmawit" method="post" target="_blank">
+        <label for="newsletterEmail" class="newsletter__label">Get new articles by email</label>
+        <div class="newsletter__row">
+          <input id="newsletterEmail" name="email" type="email" placeholder="Your email" required>
+          <button type="submit">Subscribe</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__top">
+    <span class="footer__name">AJA</span>
+    <div class="footer__social">
+      <a href="https://www.instagram.com/omam.aja" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://web.facebook.com/Hemmawit.markpong/" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://x.com/HEMMAWITAJA" target="_blank" rel="noopener">Twitter/X</a>
+      <a href="https://www.linkedin.com/in/hemmawit-markpong/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© <span id="year"></span> AJA (Hemmawit Markpong). All rights reserved.</span>
+    <a href="#top">Back to top ↑</a>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
