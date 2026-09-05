@@ -144,85 +144,154 @@ document.querySelectorAll('.dance-letter').forEach((el, i) => {
 
 // Hero globe: 3D rotating tag-cloud sphere
 const globeCanvas = document.getElementById('heroGlobe');
-if (globeCanvas && window.matchMedia('(min-width: 900px)').matches) {
+if (globeCanvas) {
   const ctx = globeCanvas.getContext('2d');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const words = [
-    'Psychology', 'Marketing Strategy', 'Communication',
-    'Learning Design', 'AI Integration', 'Public Speaking'
+    '--psych-bias', '--psych-empathy', '--psych-behavior', '--psych-cognition',
+    '--psych-decision', '--psych-influence',
+    '--strategy-growth', '--strategy-insight', '--strategy-alignment',
+    '--strategy-consumer', '--strategy-brand', '--strategy-market',
+    '--comms-framing', '--comms-narrative', '--comms-persuasion',
+    '--comms-storytelling', '--comms-trust', '--comms-message',
+    '--learn-curriculum', '--learn-workshop', '--learn-facilitation',
+    '--learn-experience', '--learn-training', '--learn-design',
+    '--ai-workflow', '--ai-integration', '--ai-collaboration',
+    '--ai-tools', '--ai-assist', '--ai-prompt',
+    '--speak-keynote', '--speak-public', '--speak-workshop',
+    '--speak-stage', '--speak-voice', '--speak-coach'
   ];
-  const pointCount = 24;
-  const points = [];
-  const goldenAngle = Math.PI * (3 - Math.sqrt(5));
-  for (let i = 0; i < pointCount; i++) {
-    const y = 1 - (i / (pointCount - 1)) * 2;
-    const radiusAtY = Math.sqrt(1 - y * y);
-    const theta = goldenAngle * i;
-    points.push({
-      x: Math.cos(theta) * radiusAtY,
-      y: y,
-      z: Math.sin(theta) * radiusAtY,
-      word: words[i % words.length]
-    });
-  }
 
-  let angle = 0;
+  // Points laid out on latitude rings, randomly placed in longitude within
+  // each ring. Rows are weighted by cos(latitude) so density stays even
+  // across the sphere's surface instead of clumping near the poles (a plain
+  // lat/long grid has the same point count per row even though rings near
+  // the poles cover far less actual surface area).
+  const targetCount = 160;
+  const rows = [];
+  for (let lat = -78; lat <= 78; lat += 6) rows.push(lat);
+  const rowWeights = rows.map(lat => Math.cos(lat * Math.PI / 180));
+  const totalWeight = rowWeights.reduce((a, b) => a + b, 0);
+
+  const points = [];
+  let wordIndex = 0;
+  rows.forEach((lat, i) => {
+    const latRad = lat * Math.PI / 180;
+    const rowCount = Math.max(1, Math.round(targetCount * rowWeights[i] / totalWeight));
+    const lons = [];
+    for (let lon = 0; lon < 360; lon += 6) lons.push(lon);
+    for (let j = lons.length - 1; j > 0; j--) {
+      const k = Math.floor(Math.random() * (j + 1));
+      [lons[j], lons[k]] = [lons[k], lons[j]];
+    }
+    lons.slice(0, Math.min(rowCount, lons.length)).forEach(lon => {
+      const lonRad = lon * Math.PI / 180;
+      points.push({
+        x: Math.cos(latRad) * Math.cos(lonRad),
+        y: Math.sin(latRad),
+        z: Math.cos(latRad) * Math.sin(lonRad),
+        word: words[wordIndex % words.length]
+      });
+      wordIndex++;
+    });
+  });
+  const order = points.map((_, i) => i);
+
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let cx = 0, cy = 0, sphereRadius = 0;
 
   function resizeGlobe() {
-    const size = globeCanvas.clientWidth;
-    globeCanvas.width = size * dpr;
-    globeCanvas.height = size * dpr;
+    const rect = globeCanvas.getBoundingClientRect();
+    globeCanvas.width = Math.max(1, Math.round(rect.width * dpr));
+    globeCanvas.height = Math.max(1, Math.round(rect.height * dpr));
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cx = rect.width / 2;
+    cy = rect.height / 2;
+    sphereRadius = Math.min(rect.width, rect.height) * 0.42;
   }
-  resizeGlobe();
-  window.addEventListener('resize', resizeGlobe);
+  window.addEventListener('resize', () => {
+    resizeGlobe();
+    // Belt-and-suspenders alongside the MediaQueryList 'change' listener
+    // below: some environments update matchMedia() state on resize without
+    // firing a 'change' event on the MediaQueryList itself.
+    if (desktopMQ.matches) startGlobe(); else stopGlobe();
+  });
 
-  function drawGlobe() {
-    const size = globeCanvas.clientWidth;
-    const cx = size / 2;
-    const cy = size / 2;
-    const sphereRadius = size * 0.36;
-    const perspective = size * 0.9;
+  let pointerX = 0, pointerY = 0, smoothX = 0, smoothY = 0;
+  if (!reduceMotion) {
+    window.addEventListener('pointermove', (e) => {
+      pointerX = (e.clientX / window.innerWidth) * 2 - 1;
+      pointerY = (e.clientY / window.innerHeight) * 2 - 1;
+    }, { passive: true });
+  }
 
-    angle += 0.0035;
-    const cosA = Math.cos(angle);
-    const sinA = Math.sin(angle);
+  const CAMERA = 2.5;
 
-    ctx.clearRect(0, 0, size, size);
+  function renderFrame(t) {
+    smoothX += (pointerX - smoothX) * 0.045;
+    smoothY += (pointerY - smoothY) * 0.045;
 
-    const projected = points.map(p => {
-      const x = p.x * cosA - p.z * sinA;
-      const z = p.x * sinA + p.z * cosA;
-      const y = p.y;
-      const scale = perspective / (perspective + z * sphereRadius);
-      return {
-        word: p.word,
-        screenX: cx + x * sphereRadius * scale,
-        screenY: cy + y * sphereRadius * scale,
-        scale,
-        z
-      };
-    });
+    const yaw = t * 7e-5 + 0.5 * Math.sin(t * 5e-5) + smoothX * 0.38;
+    const pitch = 0.22 * Math.sin(t * 7e-5 + 0.5) + 0.12 * Math.sin(t * 17e-5) + smoothY * 0.26;
+    const roll = 0.14 * Math.sin(t * 4e-5 + 2.1) + smoothX * 0.05;
+    const cosYaw = Math.cos(yaw), sinYaw = Math.sin(yaw);
+    const cosPitch = Math.cos(pitch), sinPitch = Math.sin(pitch);
+    const cosRoll = Math.cos(roll), sinRoll = Math.sin(roll);
 
-    projected.sort((a, b) => a.z - b.z);
+    ctx.clearRect(0, 0, cx * 2, cy * 2);
 
-    projected.forEach((p, i) => {
-      const depthT = (p.z + 1) / 2; // 0 (far) .. 1 (near)
-      const opacity = 0.15 + depthT * 0.75;
-      const fontSize = 10 + depthT * 8;
-      const useSignal = i % 6 === 0;
-      ctx.font = `600 ${fontSize}px 'Kanit', sans-serif`;
-      ctx.fillStyle = useSignal
-        ? `rgba(232,255,71,${opacity})`
-        : `rgba(245,245,248,${opacity})`;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
+    for (const i of order) {
+      const p = points[i];
+      const h1 = p.x * cosYaw + p.z * sinYaw;
+      const n1 = -p.x * sinYaw + p.z * cosYaw;
+      const p1 = p.y * cosPitch - n1 * sinPitch;
+      const depth = p.y * sinPitch + n1 * cosPitch;
+      const rx = h1 * cosRoll - p1 * sinRoll;
+      const ry = h1 * sinRoll + p1 * cosRoll;
+      const perspectiveScale = CAMERA / (CAMERA - depth);
+      p.screenX = cx + rx * sphereRadius * perspectiveScale;
+      p.screenY = cy + ry * sphereRadius * perspectiveScale;
+      p.depth = depth;
+      p.perspectiveScale = perspectiveScale;
+    }
+
+    order.sort((a, b) => points[a].depth - points[b].depth);
+
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    for (const i of order) {
+      const p = points[i];
+      const normDepth = (p.depth + 1) / 2;
+      ctx.globalAlpha = 0.05 + Math.pow(normDepth, 1.5) * 0.8;
+      const fontSize = sphereRadius * 0.0117 * (1 + normDepth) * p.perspectiveScale;
+      ctx.font = `500 ${fontSize}px Kanit, sans-serif`;
+      ctx.fillStyle = '#6E6E72';
       ctx.fillText(p.word, p.screenX, p.screenY);
-    });
+    }
+    ctx.globalAlpha = 1;
 
-    requestAnimationFrame(drawGlobe);
+    if (!reduceMotion && running) requestAnimationFrame(renderFrame);
   }
-  requestAnimationFrame(drawGlobe);
+
+  // The globe is only meant to show at desktop widths (matches the CSS
+  // breakpoint). Rather than checking this once at page load — which would
+  // leave the canvas blank forever if the window is later resized wider
+  // without a reload — listen for the breakpoint being crossed live.
+  const desktopMQ = window.matchMedia('(min-width: 1100px)');
+  let running = false;
+  function startGlobe() {
+    if (running) return;
+    running = true;
+    resizeGlobe();
+    if (reduceMotion) {
+      renderFrame(8000);
+    } else {
+      requestAnimationFrame(renderFrame);
+    }
+  }
+  function stopGlobe() { running = false; }
+  desktopMQ.addEventListener('change', (e) => { if (e.matches) startGlobe(); else stopGlobe(); });
+  if (desktopMQ.matches) startGlobe();
 }
 
 // Magnetic buttons

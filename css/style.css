@@ -13,7 +13,7 @@
   --ember: #ff6b35;
   --accent: var(--signal);
 
-  --font-display: 'Kanit', sans-serif;
+  --font-display: 'Archivo', 'Kanit', sans-serif;
   --font-body: 'Kanit', sans-serif;
   --font-mono: 'Kanit', sans-serif;
 
@@ -300,12 +300,26 @@ body.menu-open { overflow: hidden; }
   animation: pulse-slow 3s ease-in-out infinite;
 }
 
+.hero__row {
+  display: contents;
+}
+.hero__content {
+  display: contents;
+}
+
+.hero__actions {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 36px;
+}
+
 .hero__globe {
-  position: absolute;
-  top: 4%;
-  right: 0%;
-  width: clamp(220px, 26vw, 340px);
-  height: clamp(220px, 26vw, 340px);
+  width: clamp(480px, 46vw, 700px);
+  height: clamp(480px, 46vw, 700px);
   display: none;
   z-index: 2;
   pointer-events: none;
@@ -490,8 +504,29 @@ body.menu-open { overflow: hidden; }
   100% { top: 100%; }
 }
 
-@media (min-width: 900px) {
-  .hero__globe { display: block; }
+@media (min-width: 1100px) {
+  .hero__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    width: 100%;
+    max-width: 1360px;
+  }
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .hero__tagline { max-width: 480px; }
+  .hero__actions { justify-content: flex-start; }
+  .hero__globe {
+    flex: 0 0 auto;
+    display: block;
+  }
   .hero__stat { display: flex; }
 }
 
@@ -516,9 +551,17 @@ body.menu-open { overflow: hidden; }
 .section__title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(30px, 5vw, 56px);
+  font-size: clamp(36px, 6vw, 80px);
   margin-bottom: 56px;
   letter-spacing: -.01em;
+}
+
+.section__title em,
+.story__title em,
+.contact__title em {
+  font-style: italic;
+  font-weight: 700;
+  color: var(--ember);
 }
 
 /* ==========================================================================
@@ -592,7 +635,7 @@ body.menu-open { overflow: hidden; }
    ========================================================================== */
 .story {
   padding: 140px var(--pad);
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 .story__chapter {
@@ -603,11 +646,12 @@ body.menu-open { overflow: hidden; }
 .story__chapter:first-child { border-top: none; padding-top: 0; }
 .story__num {
   position: absolute;
-  top: 0;
+  top: 50%;
   right: 0;
+  transform: translateY(-50%);
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: clamp(90px, 16vw, 200px);
+  font-size: clamp(90px, 22vw, 320px);
   line-height: 1;
   color: transparent;
   -webkit-text-stroke: 1px var(--line);
@@ -973,7 +1017,7 @@ body.menu-open { overflow: hidden; }
 .contact__title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(32px, 6vw, 64px);
+  font-size: clamp(36px, 6vw, 80px);
   margin-bottom: 20px;
 }
 .contact__text {
