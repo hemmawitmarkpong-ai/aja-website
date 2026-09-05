@@ -57,19 +57,106 @@ const io = new IntersectionObserver((entries) => {
 
 revealEls.forEach(el => io.observe(el));
 
-// Custom cursor dot (desktop only)
-const cursorDot = document.getElementById('cursorDot');
-if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-  window.addEventListener('mousemove', (e) => {
-    cursorDot.style.opacity = '1';
-    cursorDot.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+// Animated stat counters
+const statEls = document.querySelectorAll('.stat strong');
+const counterIo = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    counterIo.unobserve(entry.target);
+    const el = entry.target;
+    const match = el.textContent.match(/^(\d+)(.*)$/);
+    if (!match) return;
+    const target = parseInt(match[1], 10);
+    const suffix = match[2];
+    const duration = 1200;
+    const start = performance.now();
+    function tick(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target) + suffix;
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
   });
-  document.addEventListener('mouseleave', () => {
-    cursorDot.style.opacity = '0';
+}, { threshold: 0.4 });
+
+statEls.forEach(el => counterIo.observe(el));
+
+// Custom 2-layer cursor (desktop only)
+const cursorDot = document.getElementById('cursorDot');
+const cursorRing = document.getElementById('cursorRing');
+const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+if (canHover && cursorDot && cursorRing) {
+  window.addEventListener('mousemove', (e) => {
+    const t = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+    cursorDot.style.transform = t;
+    cursorRing.style.transform = t;
   });
 
-  document.querySelectorAll('a, button, .work__item, .testimonial').forEach(el => {
-    el.addEventListener('mouseenter', () => cursorDot.classList.add('cursor-dot--hover'));
-    el.addEventListener('mouseleave', () => cursorDot.classList.remove('cursor-dot--hover'));
+  function setCursorState(state) {
+    cursorDot.classList.remove('cursor-dot--hover');
+    cursorDot.textContent = '';
+    cursorRing.classList.remove('cursor-ring--hidden');
+
+    if (state === 'hover') {
+      cursorDot.classList.add('cursor-dot--hover');
+      cursorDot.textContent = 'CLICK';
+      cursorRing.classList.add('cursor-ring--hidden');
+    } else if (state === 'view') {
+      cursorDot.classList.add('cursor-dot--hover');
+      cursorDot.textContent = 'AJA';
+      cursorRing.classList.add('cursor-ring--hidden');
+    }
+  }
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => setCursorState('hover'));
+    el.addEventListener('mouseleave', () => setCursorState('default'));
+  });
+
+  document.querySelectorAll('.work__thumb, .testimonial, .about__photo').forEach(el => {
+    el.addEventListener('mouseenter', () => setCursorState('view'));
+    el.addEventListener('mouseleave', () => setCursorState('default'));
+  });
+}
+
+// Dancing hero letters
+const heroReveal = document.querySelector('.hero__title .reveal');
+if (heroReveal) {
+  heroReveal.addEventListener('animationend', () => {
+    heroReveal.classList.add('overflow-visible');
+  }, { once: true });
+}
+
+const danceClasses = ['dance-0', 'dance-1', 'dance-2', 'dance-3', 'dance-4', 'dance-5'];
+document.querySelectorAll('.dance-letter').forEach((el, i) => {
+  const cls = danceClasses[i % danceClasses.length];
+  const play = () => {
+    el.classList.remove(...danceClasses);
+    void el.offsetWidth; // force reflow so the animation can replay
+    el.classList.add(cls);
+  };
+  el.addEventListener('mouseenter', play);
+  el.addEventListener('click', play);
+  el.addEventListener('animationend', () => el.classList.remove(cls));
+});
+
+// Magnetic buttons
+if (canHover) {
+  document.querySelectorAll('.btn, .nav__cta').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const x = (e.clientX - cx) * 0.35;
+      const y = (e.clientY - cy) * 0.35;
+      btn.classList.remove('magnetic-snap');
+      btn.style.transform = `translate(${x}px, ${y}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.classList.add('magnetic-snap');
+      btn.style.transform = 'translate(0, 0)';
+    });
   });
 }

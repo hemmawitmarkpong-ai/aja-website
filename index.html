@@ -14,12 +14,13 @@
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <div class="progress-bar" id="progressBar"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 <div class="cursor-dot" id="cursorDot"></div>
 
 <header class="nav" id="nav">
@@ -73,7 +74,7 @@
     </div>
 
     <h1 class="hero__title">
-      <span class="reveal">AJA</span>
+      <span class="reveal"><span class="dance-letter">A</span><span class="dance-letter">J</span><span class="dance-letter">A</span></span>
     </h1>
 
     <p class="hero__realname reveal-fade">Hemmawit Markpong</p>
@@ -159,8 +160,10 @@
   <section id="about" class="about section">
     <div class="section__label reveal-fade">01 &mdash; About</div>
     <div class="about__grid">
-      <div class="about__photo reveal-fade">
-        <img src="assets/profile/profile.jpg" alt="A.Amp — Hemmawit Markpong">
+      <div class="about__photo-wrap reveal-fade">
+        <div class="about__photo">
+          <img src="assets/profile/profile.jpg" alt="A.Amp — Hemmawit Markpong">
+        </div>
       </div>
       <div class="about__text">
         <h3 style="font-family:var(--font-display); font-weight:700; font-size:clamp(22px,3vw,30px); margin-bottom:8px;">
@@ -302,7 +305,7 @@
   </section>
 
   <!-- STATS -->
-  <section class="section">
+  <section class="stats-block">
     <div class="section__label reveal-fade">04 &mdash; By the Numbers</div>
     <div class="stats__grid">
       <div class="stat reveal-fade">
