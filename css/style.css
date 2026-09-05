@@ -300,27 +300,15 @@ body.menu-open { overflow: hidden; }
   animation: pulse-slow 3s ease-in-out infinite;
 }
 
-.hero__orbit {
+.hero__globe {
   position: absolute;
-  top: 6%;
+  top: 4%;
   right: 0%;
-  width: clamp(160px, 18vw, 260px);
-  height: clamp(160px, 18vw, 260px);
+  width: clamp(220px, 26vw, 340px);
+  height: clamp(220px, 26vw, 340px);
   display: none;
-  opacity: .9;
-  animation: spin 30s linear infinite;
   z-index: 2;
   pointer-events: none;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-.hero__orbit text {
-  fill: var(--fg);
-  font-family: 'Playfair Display', serif;
-  font-size: 8.5px;
-  letter-spacing: .02em;
-}
-.hero__orbit .dot {
-  fill: var(--signal);
 }
 
 .hero__marquee {
@@ -503,7 +491,7 @@ body.menu-open { overflow: hidden; }
 }
 
 @media (min-width: 900px) {
-  .hero__orbit { display: block; }
+  .hero__globe { display: block; }
   .hero__stat { display: flex; }
 }
 

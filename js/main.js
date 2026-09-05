@@ -142,6 +142,89 @@ document.querySelectorAll('.dance-letter').forEach((el, i) => {
   el.addEventListener('animationend', () => el.classList.remove(cls));
 });
 
+// Hero globe: 3D rotating tag-cloud sphere
+const globeCanvas = document.getElementById('heroGlobe');
+if (globeCanvas && window.matchMedia('(min-width: 900px)').matches) {
+  const ctx = globeCanvas.getContext('2d');
+  const words = [
+    'Psychology', 'Marketing Strategy', 'Communication',
+    'Learning Design', 'AI Integration', 'Public Speaking'
+  ];
+  const pointCount = 24;
+  const points = [];
+  const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+  for (let i = 0; i < pointCount; i++) {
+    const y = 1 - (i / (pointCount - 1)) * 2;
+    const radiusAtY = Math.sqrt(1 - y * y);
+    const theta = goldenAngle * i;
+    points.push({
+      x: Math.cos(theta) * radiusAtY,
+      y: y,
+      z: Math.sin(theta) * radiusAtY,
+      word: words[i % words.length]
+    });
+  }
+
+  let angle = 0;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  function resizeGlobe() {
+    const size = globeCanvas.clientWidth;
+    globeCanvas.width = size * dpr;
+    globeCanvas.height = size * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resizeGlobe();
+  window.addEventListener('resize', resizeGlobe);
+
+  function drawGlobe() {
+    const size = globeCanvas.clientWidth;
+    const cx = size / 2;
+    const cy = size / 2;
+    const sphereRadius = size * 0.36;
+    const perspective = size * 0.9;
+
+    angle += 0.0035;
+    const cosA = Math.cos(angle);
+    const sinA = Math.sin(angle);
+
+    ctx.clearRect(0, 0, size, size);
+
+    const projected = points.map(p => {
+      const x = p.x * cosA - p.z * sinA;
+      const z = p.x * sinA + p.z * cosA;
+      const y = p.y;
+      const scale = perspective / (perspective + z * sphereRadius);
+      return {
+        word: p.word,
+        screenX: cx + x * sphereRadius * scale,
+        screenY: cy + y * sphereRadius * scale,
+        scale,
+        z
+      };
+    });
+
+    projected.sort((a, b) => a.z - b.z);
+
+    projected.forEach((p, i) => {
+      const depthT = (p.z + 1) / 2; // 0 (far) .. 1 (near)
+      const opacity = 0.15 + depthT * 0.75;
+      const fontSize = 10 + depthT * 8;
+      const useSignal = i % 6 === 0;
+      ctx.font = `600 ${fontSize}px 'Kanit', sans-serif`;
+      ctx.fillStyle = useSignal
+        ? `rgba(232,255,71,${opacity})`
+        : `rgba(245,245,248,${opacity})`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(p.word, p.screenX, p.screenY);
+    });
+
+    requestAnimationFrame(drawGlobe);
+  }
+  requestAnimationFrame(drawGlobe);
+}
+
 // Magnetic buttons
 if (canHover) {
   document.querySelectorAll('.btn, .nav__cta').forEach(btn => {
